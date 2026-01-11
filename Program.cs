@@ -16,7 +16,17 @@ app.UseStaticFiles();  // Tells .NET to serve files from wwwroot folder
 app.UseCors(policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
 // Endpoints backed by MongoDB service
-app.MapGet("/pizzas", async (PizzaService svc) => await svc.GetAsync());
+app.MapGet("/pizzas", async (PizzaService svc) => 
+{
+    try
+    {
+        return Results.Ok(await svc.GetAsync());
+    }
+    catch (Exception ex)
+    {
+        return Results.Problem(detail: ex.ToString(), statusCode: 500);
+    }
+});
 
 app.MapPost("/pizzas", async (PizzaService svc, Pizza pizza) =>
 {
