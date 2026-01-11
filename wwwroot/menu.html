@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - My Pizza Shop</title>
+    <link rel="stylesheet" href="css/site.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="nav-brand">🍕 My Pizza Shop</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="menu.html">Menu</a>
+                <a href="admin.html">Admin</a>
+                <a href="contact.html">Contact</a>
+                <a href="login.html" id="loginLink">Login</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Our Menu</h1>
+        <p>Choose from our delicious selection.</p>
+
+        <div id="loading">Loading pizzas...</div>
+        <div id="pizzaList" class="pizza-grid"></div>
+    </div>
+
+    <script>
+        async function loadMenu() {
+            try {
+                const response = await fetch('/pizzas');
+                const pizzas = await response.json();
+
+                const display = document.getElementById('pizzaList');
+                document.getElementById('loading').style.display = 'none';
+                display.innerHTML = '';
+
+                if (pizzas.length === 0) {
+                    display.innerHTML = '<p>No pizzas currently available.</p>';
+                    return;
+                }
+
+                pizzas.forEach(pizza => {
+                    const card = document.createElement('div');
+                    card.className = 'pizza-card';
+                    card.innerHTML = `
+                        <h2>${pizza.name}</h2>
+                        <p>${pizza.description || 'No description available.'}</p>
+                        <div class="pizza-price">$${pizza.price.toFixed(2)}</div>
+                    `;
+                    display.appendChild(card);
+                });
+            } catch (err) {
+                console.error(err);
+                document.getElementById('loading').textContent = 'Failed to load menu. Please try again later.';
+            }
+        }
+
+        loadMenu();
+    </script>
+</body>
+
+</html>

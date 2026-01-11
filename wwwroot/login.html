@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - My Pizza Shop</title>
+    <link rel="stylesheet" href="css/site.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="nav-brand">🍕 My Pizza Shop</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="menu.html">Menu</a>
+                <a href="login.html" id="loginLink">Login</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Login</h1>
+        <div
+            style="max-width: 400px; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin: 0 auto;">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input id="username" type="text" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input id="password" type="password" placeholder="Password">
+            </div>
+            <button onclick="login()" class="btn-primary" style="width: 100%;">Sign In</button>
+            <p id="error" style="color: red; margin-top: 10px; display: none;"></p>
+        </div>
+
+        <div style="text-align: center; margin-top: 20px;">
+            <p>Demo Credentials:</p>
+            <p>Admin: <code>admin / admin123</code></p>
+            <p>User: <code>user / user123</code></p>
+        </div>
+    </div>
+
+    <script>
+        async function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorEl = document.getElementById('error');
+
+            try {
+                const response = await fetch('/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                if (response.ok) {
+                    const user = await response.json();
+                    localStorage.setItem('user', JSON.stringify(user));
+
+                    // Redirect based on role
+                    if (user.role === 'Admin') {
+                        window.location.href = 'admin.html';
+                    } else {
+                        window.location.href = 'menu.html';
+                    }
+                } else {
+                    errorEl.textContent = 'Invalid username or password';
+                    errorEl.style.display = 'block';
+                }
+            } catch (err) {
+                console.error(err);
+                errorEl.textContent = 'Login failed. Server might be down.';
+                errorEl.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - My Pizza Shop</title>
+    <link rel="stylesheet" href="css/site.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="nav-brand">🍕 My Pizza Shop</a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="menu.html">Menu</a>
+                <a href="admin.html">Admin</a>
+                <a href="contact.html">Contact</a>
+                <a href="login.html" id="loginLink">Login</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Contact Us</h1>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 30px;">
+            <div>
+                <h2>Visit Us</h2>
+                <p><strong>Address:</strong><br>
+                    123 Pizza Lane,<br>
+                    Flavor Town, FT 56789</p>
+
+                <p><strong>Hours:</strong><br>
+                    Mon-Sun: 11:00 AM - 10:00 PM</p>
+            </div>
+
+            <div>
+                <h2>Get in Touch</h2>
+                <p><strong>Phone:</strong><br>
+                    (555) 123-4567</p>
+
+                <p><strong>Email:</strong><br>
+                    hello@mypizzashop.com</p>
+
+                <div style="margin-top: 20px; padding: 20px; background: white; border-radius: 8px;">
+                    <h3>Send us a message</h3>
+                    <p>Have feedback? We'd love to hear from you!</p>
+                    <div class="form-group">
+                        <input type="text" placeholder="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Your Message"></textarea>
+                    </div>
+                    <button class="btn-primary" onclick="alert('Message sent! (Simulation)')">Send Message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
